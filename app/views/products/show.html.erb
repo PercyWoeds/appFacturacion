@@ -1,0 +1,25 @@
+<h1> Visualizar Factura</h1>
+
+<p>      </p>
+
+<h2> Número : <%= @product.serie %> - <%= @product.numero %>  </h2>
+
+<div>
+ <h4>  Fecha        : <%= @product.fecha %></h4>
+ <h4>  Ruc          : <%= @product.ruc   %></h4>
+ <h4>  Cantidad     : <%= @product.cant1 %></h4>
+ <h4>  Precio S.Igv : <%= (@product.preciosigv)  %></h4>
+ <h4>  Precio C.Igv : <%= number_to_currency(@product.preciocigv, :unit => "S/. ")  %></h4>
+ <h4>  V.Venta      : <%= number_to_currency(@product.vventa, :unit => "S/. ") %></h4>
+ <h4>  I.G.V.       : <%= number_to_currency(@product.igv, :unit => "S/. ") %></h4>
+ <h4>  Importe      : <%= number_to_currency(@product.importe, :unit => "S/. ") %></h4>
+ <h4>  Guia         : <%= @product.guia %></h4> 
+
+</div>
+
+
+<%= form_tag import_products_path, multipart: true do %>
+  <%= submit_tag "Enviar Sunat " %>
+<% end %>
+
+<p> <%= link_to "Volver", products_path %> </p>

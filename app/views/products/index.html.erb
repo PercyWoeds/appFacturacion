@@ -1,0 +1,54 @@
+
+<h1>Facturas</h1>
+<p>
+  Download:
+  <%= link_to "CSV", products_path(format: "csv") %> |
+  <%= link_to "Excel", products_path(format: "xls") %>
+</p>
+
+<table id="Enviar Facturas a Sunat ">
+  <tr>
+    <th>Fecha</th>    
+    <th>serie</th>
+    <th>Numero</th>
+    <th>Ruc</th>
+    <th>Cantidad</th>    
+    <th>Pre.S/Igv</th>
+    <th>Pre.C/Igv</th>
+    <th>V.Venta</th>
+    <th>IGV</th>
+    <th>Importe</th>
+    <th>Guia</th>
+  </tr>
+  
+<% @products.each do |product| %>
+  <tr>
+    <td><%= product.fecha.strftime("%d/%m/%y") %></td>
+    <td><%= product.serie.strip %></td>
+    <td><%= product.numero.strip %></td>  
+    <td><%= product.ruc   %></td>  
+    <td><%= product.cant1 %></td>    
+    <td><%= number_to_currency(product.preciosigv , :unit => "S/. ")  %></td>
+    <td><%= number_to_currency(product.preciocigv, :unit => "S/. ")  %></td>
+    <td><%= number_to_currency(product.vventa, :unit => "") %></td>
+    <td><%= number_to_currency(product.igv, :unit => "") %></td>
+    <td><%= number_to_currency(product.importe, :unit => "") %></td>
+    <td><%= product.guia  %></td> 
+    <td><%= link_to "Ver", product %> </td> 
+
+  </tr>
+<% end %>
+</table>
+
+<h2>Importar Archivo Facturas "*.csv"</h2>
+
+<%= form_tag import_products_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Importar " %>
+<% end %>
+<p> 
+
+</p>
+
+<%= will_paginate @products %>
+
